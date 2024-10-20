@@ -1,7 +1,7 @@
 const express = require('express')
 const httpErrors = require('http-errors')
 const morgan = require('morgan')
-const AuthRoute = require('./route/Auth.route')
+const AuthRoute = require('./Routes/Auth.route')
 require('dotenv').config()
 
 const PORT = process.env.PORT || 3000;
