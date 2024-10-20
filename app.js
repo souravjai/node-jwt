@@ -3,6 +3,7 @@ const httpErrors = require('http-errors')
 const morgan = require('morgan')
 const AuthRoute = require('./Routes/Auth.route')
 require('dotenv').config()
+require('./helpers/db_connect');
 
 const PORT = process.env.PORT || 3000;
 
