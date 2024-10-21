@@ -1,4 +1,5 @@
 const validator = require('validator');
+const bycrpt = require('bcrypt');
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
@@ -19,6 +20,17 @@ const UserSchema = new Schema({
     data: {
         type: String,
         required: true
+    }
+})
+
+UserSchema.pre('save', async function (next) {
+    try {
+        const salt = await bycrpt.genSalt(10)
+        const hashedPassword = await bycrpt.hash(this.password, salt)
+        this.password = hashedPassword;
+        next()
+    } catch (err) {
+        next(err)
     }
 })
 
