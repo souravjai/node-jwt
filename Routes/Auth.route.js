@@ -2,6 +2,7 @@ const express = require("express")
 const httpErrors = require('http-errors')
 const { asyncHandler } = require('../helpers/globalErrorHandler')
 const User = require('../Models/Users.model')
+const { signAccessToken } = require('../helpers/jwt_helper')
 
 const router = express.Router()
 
@@ -21,8 +22,8 @@ router.post('/register',
 
         const user = new User({ email, password, data: email });
         const savedUser = await user.save();
-
-        res.status(201).send(savedUser);
+        const access_token = await signAccessToken(savedUser.id);
+        res.status(201).send({ access_token });
     }))
 
 
