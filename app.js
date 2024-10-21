@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 const app = express()
 
 app.use(morgan(process.env.LOGGER_TYPE || 'tiny'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 
 app.get("/", async (req, res, next) => {
@@ -29,8 +31,14 @@ app.use(async (req, res, next) => {
 
 // This is a Global error handler for routes
 app.use((err, req, res, next) => {
+
+    if (err.name === 'ValidationError') {
+        err.status = 400
+    }
+
     const status = err.status || 500
     const message = err.message || "Internal Server Error!"
+
 
     res.status(status).send({
         error: {
