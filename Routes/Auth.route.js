@@ -2,7 +2,7 @@ const express = require("express")
 const httpErrors = require('http-errors')
 const { asyncHandler } = require('../helpers/globalErrorHandler')
 const User = require('../Models/Users.model')
-const { signAccessToken } = require('../helpers/jwt_helper')
+const { signAccessToken, signRefreshToken, verifyRefreshToken } = require('../helpers/jwt_helper')
 
 const router = express.Router()
 
@@ -22,8 +22,21 @@ router.post('/register', asyncHandler(async (req, res, next) => {
     const user = new User({ email, password, data: email });
     const savedUser = await user.save();
     const access_token = await signAccessToken(savedUser.id);
+    const refresh_token = await signRefreshToken(savedUser.id);
+    res.status(201).send({ access_token, refresh_token });
+}))
 
-    res.status(201).send({ access_token });
+router.post('/refresh-token', asyncHandler(async (req, res, next) => {
+    const token = req.body?.refreshToken
+    if (!token) {
+        throw httpErrors.BadRequest()
+    }
+
+    const userID = await verifyRefreshToken(token)
+    const access_token = await signAccessToken(userID);
+    const refresh_token = await signRefreshToken(userID);
+    res.status(200).send({ access_token, refresh_token });
+
 }))
 
 

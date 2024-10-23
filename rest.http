@@ -9,7 +9,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email":"Test11@test.com",
+    "email":"Test1111@test.com",
     "password":"Test"
 }
 
@@ -22,6 +22,16 @@ Content-Type: application/json
     "email":"Test11@test.com",
     "password":"Test"
 }
+
+
+### refresh token
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3Mjk2OTMwMjIsImV4cCI6MTcyOTY5NjYyMiwiYXVkIjoiNjcxOTA1NWU1NzU4YmJhMThhZGE2YzRlIn0.tajnrYuMLxs77QJM8zPE8duQk7VK6xMPlPDZL5S2Lt8"
+}
+
 
 
 ### Logout Route
