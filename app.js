@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const AuthRoute = require('./Routes/Auth.route')
 require('dotenv').config()
 require('./helpers/db_connect');
+const { verifyAccessToken } = require('./helpers/jwt_helper')
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get("/", async (req, res, next) => {
+app.get("/", verifyAccessToken, async (req, res, next) => {
     res.send("Welcome to JWT-Backend")
 })
 

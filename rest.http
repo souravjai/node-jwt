@@ -1,18 +1,27 @@
 ### Get Route
 GET http://localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3Mjk1MjE1ODYsImV4cCI6MTcyOTUyMTYwMSwiYXVkIjoiNjcxNjVlN2Q0NmJjMzdkM2RlMGYxNTNjIn0.JSpk-_UnY6F8sVlclkQYfsJLel_-Jx_L9Zl76e0PHyg
+
+
 
 ### Register Route
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email":"Test@test.com",
+    "email":"Test11@test.com",
     "password":"Test"
 }
 
 
 ### Login Route
 POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"Test11@test.com",
+    "password":"Test"
+}
 
 
 ### Logout Route

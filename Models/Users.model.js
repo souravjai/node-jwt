@@ -23,6 +23,15 @@ const UserSchema = new Schema({
     }
 })
 
+UserSchema.methods.isValidPassword = async function (password) {
+    try {
+        return await bycrpt.compare(password, this.password);
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
 UserSchema.pre('save', async function (next) {
     try {
         const salt = await bycrpt.genSalt(10)
